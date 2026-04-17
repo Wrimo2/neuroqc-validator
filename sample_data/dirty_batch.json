@@ -1,0 +1,122 @@
+[
+    {
+        "patient_id": "NDAI-TEST-001",
+        "dob_year": 1962,
+        "gender": "F",
+        "visit_date": "2024-03-15",
+        "diagnosis_codes": ["G43.909", "G40.89", "ZZZZZ"],
+        "medications": ["Topiramate 25mg"],
+        "vitals": {
+            "systolic_bp": 928,
+            "diastolic_bp": 82,
+            "heart_rate": 74,
+            "weight_kg": null
+        },
+        "lab_results": {
+            "sodium_meq_l": null,
+            "creatinine_mg_dl": 0.9
+        },
+        "clinical_note": "Patient reports migraines.",
+        "ocr_confidence": 0.72
+    },
+    {
+        "patient_id": "NDAI-TEST-002",
+        "dob_year": 1989,
+        "gender": "M",
+        "visit_date": "2024-04-10",
+        "diagnosis_codes": ["G35", "G37.3"],
+        "medications": ["Interferon beta-1a 30mcg", "Baclofen 10mg"],
+        "vitals": {
+            "systolic_bp": 118,
+            "diastolic_bp": 76,
+            "heart_rate": 68,
+            "weight_kg": 74.5
+        },
+        "lab_results": {
+            "sodium_meq_l": 139,
+            "creatinine_mg_dl": 1.0
+        },
+        "clinical_note": "Stable MS patient. No new lesions reported.",
+        "ocr_confidence": 0.97
+    },
+    {
+        "patient_id": "NDAI-TEST-003",
+        "dob_year": 1975,
+        "gender": "F",
+        "visit_date": "2024-05-02",
+        "diagnosis_codes": ["G20", "G21.1"],
+        "medications": ["Levodopa 100mg", "Carbidopa 25mg"],
+        "vitals": {
+            "systolic_bp": 122,
+            "diastolic_bp": 80,
+            "heart_rate": 72,
+            "weight_kg": 61.2
+        },
+        "lab_results": {
+            "sodium_meq_l": 141,
+            "creatinine_mg_dl": 0.8
+        },
+        "clinical_note": "Parkinson's patient showing mild tremor improvement.",
+        "ocr_confidence": 0.95
+    },
+    {
+        "patient_id": "NDAI-TEST-004",
+        "dob_year": 2021,
+        "gender": "X",
+        "visit_date": "2024-06-18",
+        "diagnosis_codes": ["G89.29", "ABC123", null],
+        "medications": [],
+        "vitals": {
+            "systolic_bp": 110,
+            "diastolic_bp": null,
+            "heart_rate": 310,
+            "weight_kg": -5.0
+        },
+        "lab_results": {
+            "sodium_meq_l": null,
+            "creatinine_mg_dl": null
+        },
+        "clinical_note": null,
+        "ocr_confidence": 0.41
+    },
+    {
+        "patient_id": "NDAI-TEST-005",
+        "dob_year": 1955,
+        "gender": "M",
+        "visit_date": "2024-07-09",
+        "diagnosis_codes": ["G30.1", "F02.81"],
+        "medications": ["Donepezil 10mg", "Memantine 20mg"],
+        "vitals": {
+            "systolic_bp": 130,
+            "diastolic_bp": 85,
+            "heart_rate": 66,
+            "weight_kg": 79.0
+        },
+        "lab_results": {
+            "sodium_meq_l": 138,
+            "creatinine_mg_dl": 1.1
+        },
+        "clinical_note": "Alzheimer's patient. Caregiver reports increased confusion at night.",
+        "ocr_confidence": 0.93
+    },
+    {
+        "patient_id": null,
+        "dob_year": "nineteen-ninety",
+        "gender": "M",
+        "visit_date": "15-03-2024",
+        "diagnosis_codes": "G43.909",
+        "medications": ["Amitriptyline 10mg"],
+        "vitals": {
+            "systolic_bp": 145,
+            "diastolic_bp": 95,
+            "heart_rate": null,
+            "weight_kg": 88.3
+        },
+        "lab_results": {
+            "sodium_meq_l": 200,
+            "creatinine_mg_dl": 0.7
+        },
+        "clinical_note": "Follow-up for chronic headaches.",
+        "ocr_confidence": 0.55
+    }
+]
