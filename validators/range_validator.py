@@ -5,7 +5,7 @@ def validate_ranges(record):
     errors = []
 
     # Process vitals (nurse-collected at check-in)
-    vitals = record.get('vitals', {})
+    vitals = record.get('vitals') or {}
     for vital_name, value in vitals.items():
         if value is None:
             continue #completeness checker will handle nulls
@@ -30,7 +30,7 @@ def validate_ranges(record):
                 'suggestion': 'Likely OCR error. Verify source.'
             })
     # Process lab results (laboratory-collected)
-    labs = record.get('lab_results', {})
+    labs = record.get('lab_results') or {}
     for lab_name, value in labs.items():
         if value is None:
             continue #completeness checker will handle nulls

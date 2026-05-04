@@ -1,0 +1,269 @@
+[
+  {
+    "patient_id": "NDAI-CLEAN-001",
+    "dob_year": 1990,
+    "gender": "Male",
+    "visit_date": "2024-01-24",
+    "diagnosis_codes": [
+      "G30.9",
+      "G25.81"
+    ],
+    "medications": [
+      "Sumatriptan 100mg"
+    ],
+    "vitals": {
+      "systolic_bp": 134,
+      "diastolic_bp": 62,
+      "heart_rate": 92,
+      "weight_kg": 71.1
+    },
+    "lab_results": {
+      "sodium_meq_l": 136,
+      "creatinine_mg_dl": 0.7,
+      "glucose_mg_dl": 84
+    },
+    "clinical_note": "Routine follow-up visit. Patient reports stable condition.",
+    "ocr_confidence": 0.96
+  },
+  {
+    "patient_id": "NDAI-CLEAN-002",
+    "dob_year": 1951,
+    "gender": "Male",
+    "visit_date": "2024-12-21",
+    "diagnosis_codes": [
+      "G30.9",
+      "G40.309"
+    ],
+    "medications": [
+      "Gabapentin 300mg",
+      "Topiramate 50mg",
+      "Levetiracetam 500mg"
+    ],
+    "vitals": {
+      "systolic_bp": 127,
+      "diastolic_bp": 70,
+      "heart_rate": 72,
+      "weight_kg": 57.8
+    },
+    "lab_results": {
+      "sodium_meq_l": 141,
+      "creatinine_mg_dl": 0.7,
+      "glucose_mg_dl": 94
+    },
+    "clinical_note": "Patient presents for medication review. No new complaints.",
+    "ocr_confidence": 0.94
+  },
+  {
+    "patient_id": "NDAI-CLEAN-003",
+    "dob_year": 1972,
+    "gender": "Female",
+    "visit_date": "2024-01-24",
+    "diagnosis_codes": [
+      "G47.33",
+      "G40.909"
+    ],
+    "medications": [
+      "Sumatriptan 100mg",
+      "Donepezil 10mg"
+    ],
+    "vitals": {
+      "systolic_bp": 118,
+      "diastolic_bp": 86,
+      "heart_rate": 95,
+      "weight_kg": 80.9
+    },
+    "lab_results": {
+      "sodium_meq_l": 141,
+      "creatinine_mg_dl": 0.9,
+      "glucose_mg_dl": 74
+    },
+    "clinical_note": "Quarterly check-up. Seizure frequency has decreased since last visit.",
+    "ocr_confidence": 0.93
+  },
+  {
+    "patient_id": "NDAI-CLEAN-004",
+    "dob_year": 1964,
+    "gender": "Female",
+    "visit_date": "2024-02-28",
+    "diagnosis_codes": [
+      "G40.909"
+    ],
+    "medications": [
+      "Gabapentin 300mg",
+      "Lamotrigine 100mg"
+    ],
+    "vitals": {
+      "systolic_bp": 140,
+      "diastolic_bp": 86,
+      "heart_rate": 78,
+      "weight_kg": 58.1
+    },
+    "lab_results": {
+      "sodium_meq_l": 141,
+      "creatinine_mg_dl": 0.7,
+      "glucose_mg_dl": 87
+    },
+    "clinical_note": "Follow-up after dosage adjustment. Tolerating new regimen well.",
+    "ocr_confidence": 0.97
+  },
+  {
+    "patient_id": "NDAI-CLEAN-005",
+    "dob_year": 1993,
+    "gender": "Male",
+    "visit_date": "2024-10-21",
+    "diagnosis_codes": [
+      "G47.33"
+    ],
+    "medications": [
+      "Amitriptyline 25mg",
+      "Levetiracetam 500mg",
+      "Lamotrigine 100mg"
+    ],
+    "vitals": {
+      "systolic_bp": 124,
+      "diastolic_bp": 68,
+      "heart_rate": 95,
+      "weight_kg": 84.4
+    },
+    "lab_results": {
+      "sodium_meq_l": 139,
+      "creatinine_mg_dl": 1.0,
+      "glucose_mg_dl": 73
+    },
+    "clinical_note": "Annual neurological examination. No focal deficits noted.",
+    "ocr_confidence": 0.94
+  },
+  {
+    "patient_id": "NDAI-CLEAN-006",
+    "dob_year": 1952,
+    "gender": "Female",
+    "visit_date": "2024-07-09",
+    "diagnosis_codes": [
+      "G30.9"
+    ],
+    "medications": [
+      "Valproic Acid 250mg",
+      "Amitriptyline 25mg",
+      "Lamotrigine 100mg"
+    ],
+    "vitals": {
+      "systolic_bp": 125,
+      "diastolic_bp": 88,
+      "heart_rate": 84,
+      "weight_kg": 57.1
+    },
+    "lab_results": {
+      "sodium_meq_l": 138,
+      "creatinine_mg_dl": 0.7,
+      "glucose_mg_dl": 105
+    },
+    "clinical_note": "Patient reports improved sleep quality with current medication.",
+    "ocr_confidence": 0.96
+  },
+  {
+    "patient_id": "NDAI-CLEAN-007",
+    "dob_year": 1997,
+    "gender": "Female",
+    "visit_date": "2024-10-13",
+    "diagnosis_codes": [
+      "G30.9",
+      "G47.00"
+    ],
+    "medications": [
+      "Lamotrigine 100mg",
+      "Sumatriptan 100mg",
+      "Topiramate 50mg"
+    ],
+    "vitals": {
+      "systolic_bp": 107,
+      "diastolic_bp": 64,
+      "heart_rate": 95,
+      "weight_kg": 58.0
+    },
+    "lab_results": {
+      "sodium_meq_l": 142,
+      "creatinine_mg_dl": 1.0,
+      "glucose_mg_dl": 94
+    },
+    "clinical_note": "Review of recent imaging results. No significant changes observed.",
+    "ocr_confidence": 0.95
+  },
+  {
+    "patient_id": "NDAI-CLEAN-008",
+    "dob_year": 1979,
+    "gender": "Female",
+    "visit_date": "2024-09-28",
+    "diagnosis_codes": [
+      "G40.909"
+    ],
+    "medications": [
+      "Donepezil 10mg",
+      "Gabapentin 300mg",
+      "Valproic Acid 250mg"
+    ],
+    "vitals": {
+      "systolic_bp": 107,
+      "diastolic_bp": 69,
+      "heart_rate": 82,
+      "weight_kg": 57.9
+    },
+    "lab_results": {
+      "sodium_meq_l": 136,
+      "creatinine_mg_dl": 1.2,
+      "glucose_mg_dl": 86
+    },
+    "clinical_note": "Patient denies headache, dizziness, or visual disturbances.",
+    "ocr_confidence": 0.99
+  },
+  {
+    "patient_id": "NDAI-CLEAN-009",
+    "dob_year": 1998,
+    "gender": "Male",
+    "visit_date": "2024-09-04",
+    "diagnosis_codes": [
+      "G47.33",
+      "G30.9"
+    ],
+    "medications": [
+      "Valproic Acid 250mg"
+    ],
+    "vitals": {
+      "systolic_bp": 110,
+      "diastolic_bp": 77,
+      "heart_rate": 88,
+      "weight_kg": 95.9
+    },
+    "lab_results": {
+      "sodium_meq_l": 145,
+      "creatinine_mg_dl": 0.8,
+      "glucose_mg_dl": 71
+    },
+    "clinical_note": "Medication compliance confirmed. No adverse effects reported.",
+    "ocr_confidence": 0.94
+  },
+  {
+    "patient_id": "NDAI-CLEAN-010",
+    "dob_year": 1973,
+    "gender": "Female",
+    "visit_date": "2024-04-02",
+    "diagnosis_codes": [
+      "G25.81"
+    ],
+    "medications": [
+      "Sumatriptan 100mg"
+    ],
+    "vitals": {
+      "systolic_bp": 131,
+      "diastolic_bp": 86,
+      "heart_rate": 59,
+      "weight_kg": 98.9
+    },
+    "lab_results": {
+      "sodium_meq_l": 144,
+      "creatinine_mg_dl": 1.1,
+      "glucose_mg_dl": 78
+    },
+    "clinical_note": "Post-treatment evaluation. Symptoms remain well controlled.",
+    "ocr_confidence": 0.97
+  }
+]

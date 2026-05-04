@@ -1,16 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroQC Validator</title>
-</head>
-<body>
-    <h1>NeuroQC Validator</h1>
-    <h3>Upload the JSON file to begin QC validation</h3>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".json">
-        <button type="submit">Upload and validate</button>
+{% extends "base.html" %}
+{% block title %}Upload - NeuroQC Validator{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Upload a batch for validation</h1>
+    <p style="color: #555; margin: 10px 0 20px 0;">
+        Select a JSON file containing one or more patient records.
+        The file will be processed through 7 validation categories.
+    </p>
+
+    <form action="{{ url_for('upload_file')}}" method="POST" enctype="multipart/form-data">
+        <label for="file" style="display: block; margin-bottom: 8px; font-weight: 600;">JSON file</label>
+        <input type="file" name="file" id="file" accept=".json" required style="margin-bottom: 20px;"><br>
+        <button type="submit" class="btn btn-primary">Upload and Validate</button>
     </form>
-</body>
-</html>
+</div>
+<div class="card">
+    <h3>Expected format</h3>
+    <p style="color: #555; margin-top: 10px;">
+        A JSON array of records objects, each with fields such as 
+        <code>patient id</code>,<code>dob_year</code>,<code>gender</code>,<code>diagnosis_codes</code>,
+        <code>medications</code>,<code>vitals</code>,<code>lab_results</code>,<code>clinical_note</code>, and 
+        <code>ocr_confidence</code>
+    </p>
+</div>
+{% endblock %}

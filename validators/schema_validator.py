@@ -24,7 +24,7 @@ def validate_schema(record):
             errors.append({
                 'category': 'SCHEMA',
                 'severity': 'CRITICAL',
-                'field': 'field',
+                'field': field,
                 'message': f'Required field "{field}" is missing',
                 'suggestion': f'Ensure OCR pipeline outputs "{field}"'
             })
@@ -32,7 +32,7 @@ def validate_schema(record):
             errors.append({
                 'category': 'SCHEMA',
                 'severity': 'CRITICAL',
-                'field': 'field',
+                'field': field,
                 'message': f'Required field "{field}" is null',
                 'suggestion': f'Check sourse document for this data"'
             })
@@ -40,7 +40,7 @@ def validate_schema(record):
             errors.append({
                 'category': 'SCHEMA',
                 'severity': 'CRITICAL',
-                'field': 'field',
+                'field': field,
                 'message': f'"{field}" should be '
                            f'{expected_type.__name__}, got '
                            f'{type(record[field]).__name__}',

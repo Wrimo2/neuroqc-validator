@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Record {{ result.patient_id }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <p style="margin-bottom: 12px;">
+        <a href="{{ url_for('batch_detail', batch_id=result.batch_id) }}" style="color: #2e75b6; text-decoration: none;">
+            &larr; Back to Batch
+        </a>
+    </p>
+    <h1>Patient {{ result.patient_id }}</h1>
+    <p style="margin-top: 8px;">
+        Overall Status:
+        {% if result.overall_status == 'PASS' %}
+        <span class="badge badge-pass">PASS</span>
+        {% elif result.overall_status == 'WARNING' %}
+        <span class="badge badge-warning">WARNING</span>
+        {% else %}
+        <span class="badge badge-fail">FAIL</span>
+        {% endif %}
+        &nbsp;&nbsp;
+        OCR Confidence:
+        {% if result.ocr_confidence is not none %}
+            {{ '%.2f' | format(result.ocr_confidence) }}
+        {% else %}
+            &mdash;
+        {% endif %}
+    </p>
+</div>
+
+{% if errors_by_category %}
+    {% for category, errs in errors_by_category.items() %}
+    <div class="card">
+        <h3 style="margin-bottom: 16px;">
+            {{ category }}
+            <span style="color: #999; font-weight: normal; font-size: 14px;">
+                ({{ errs | length }} {{ 'issue' if errs|length == 1 else 'issues'}})
+            </span>
+        </h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Severity</th>
+                    <th>Field</th>
+                    <th>Message</th>
+                    <th>Suggestion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in errs %}
+                <tr>
+                    <td>
+                        {% if e.severity == 'CRITICAL' %}
+                            <span class="badge badge-fail">CRITICAL</span>
+                        {% elif e.severity == 'WARNING' %}
+                            <span class="badge badge-warning">WARNING</span>
+                        {% else %}
+                            <span class="badge" style="background: #d6eaf8; color: #1f4e79;">INFO</span>
+                        {% endif %}
+                    </td>
+                    <td><code style="font-size: 13px;">{{ e.field_name }}</code></td>
+                    <td>{{ e.error_message }}</td>
+                    <td style="color: #555; font-size: 13px;">{{ e.suggestion }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="card">
+        <p style="color: #196f3d">
+            &#10003; No issues found. This record passed all 7 validators.
+        </p>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,8 +1,10 @@
-#__init__.py
+#validators/__init__.py
 from .schema_validator import validate_schema
 from .range_validator import validate_ranges
 from .icd_validator import validate_icd_codes
 from .completeness_checker import check_completeness
+from .medication_validator import validate_medication #added after phase 3
+from .phi_detector import detect_phi #added after phase 3
 
 def run_all_validators(record):
     all_errors = []
@@ -16,11 +18,13 @@ def run_all_validators(record):
     for e in schema_errors:
         if e['severity'] == 'CRITICAL':
             critical_schema_fails.append(e)
-            
+    
     if len(critical_schema_fails) < 3:
         all_errors.extend(validate_ranges(record))
         all_errors.extend(validate_icd_codes(record))
         all_errors.extend(check_completeness(record))
+        all_errors.extend(validate_medication(record)) #added after phase 3
+        all_errors.extend(detect_phi(record)) #added after phase 3
     
     #determine overall status
     #has_critical

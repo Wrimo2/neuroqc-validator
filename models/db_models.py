@@ -33,24 +33,24 @@ class ReferenceVitaRange(db.Model):
 
 class QCBatch(db.Model):
     __tablename__ = 'qc_batches'
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key = True)  
     filename = db.Column(db.String(255))
     uploaded_at = db.Column(db.DateTime, default = datetime.utcnow)
     total_records = db.Column(db.Integer, default = 0)
     pass_count = db.Column(db.Integer, default = 0)
     warning_count = db.Column(db.Integer, default = 0)
     fail_count = db.Column(db.Integer, default = 0)
-    results = db.relationship('QCResult', backref ='batch', lazy = True)
+    results = db.relationship('QCResult', backref ='batch', lazy = True, cascade = 'all, delete-orphan')
 
 class QCResult(db.Model):
     __tablename__ = 'qc_results'
     id = db.Column(db.Integer, primary_key = True)
     batch_id = db.Column(db.Integer, db.ForeignKey('qc_batches.id'))
-    patiend_id = db.Column(db.String(50))
+    patient_id = db.Column(db.String(50))
     overall_status = db.Column(db.String(10))
     ocr_confidence = db.Column(db.Float)
     error_summary = db.Column(db.JSON)
-    errors = db.relationship('QCErrorDetail', backref = 'result', lazy = True)
+    errors = db.relationship('QCErrorDetail', backref = 'result', lazy = True, cascade = 'all, delete-orphan')
     
 class QCErrorDetail(db.Model):
     __tablename__ = 'qc_error_details'
