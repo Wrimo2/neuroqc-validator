@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block title %}batch {{ batch.id }} - NeuroQC Validator{% endblock %}
+{% block title %}{% if is_preview %}Preview{% else %}Batch {{ batch.id }}{% endif %} - NeuroQC Validator{% endblock %}
 
 {% block content %}
 <div class="card">
-    <h1>Batch #{{ batch.id }}</h1>
+    <h1>{% if is_preview %}Validation Preview{% else %}Batch #{{ batch.id }}{% endif %}</h1>
     <p style="color: #555; margin: 8px 0;">
         <strong>File:</strong>{{ batch.filename }} <br>
-        <strong>Upload:</strong>{{ batch.uploaded_at.strftime('%Y-%m-%d-%H:%M') }} <br>
+        {% if not is_preview %}<strong>Upload:</strong>{{ batch.uploaded_at.strftime('%Y-%m-%d-%H:%M') }} <br>{% endif %}
         <strong>Total records:</strong>{{ batch.total_records }}
     </p>
     <div style="display: flex; gap: 20px; margin-top: 20px;">
@@ -68,9 +68,13 @@
                 <td>{{ r.error_summary.warning or 0 }}</td>
                 <td>{{ r.error_summary.total or 0}}</td>
                 <td>
-                    <a href="{{ url_for('record_details', result_id = r.id) }}" class="btn btn-primary" style="padding: 6px 14px; font-size: 13px;">
-                        View
-                    </a>
+                    {% if not is_preview %}
+                        <td>
+                            <a href="{{ url_for('record_details', result_id=r.id) }}" class="btn btn-primary" style="padding: 6px 14px; font-size: 13px;">View</a>
+                        </td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}

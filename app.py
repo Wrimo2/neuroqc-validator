@@ -4,6 +4,7 @@ from validators import run_all_validators
 from models.db_models import db, QCBatch, QCResult, QCErrorDetail
 import json
 from datetime import datetime
+from sqlalchemy import func
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -18,7 +19,47 @@ def index():
 
 @app.route("/dashboard")
 def dashboard():
-    return 'Dashboard coming soon'
+    #all batches, newest first, for the trend chart
+    batches = QCBatch.query.order_by(QCBatch.uploaded_at.desc()).limit(10).all()
+
+    #aggregation 1: error count per category (for the pie chart)
+    error_dist = db.session.query(QCErrorDetail.error_category,func.count(QCErrorDetail.id)).group_by(QCErrorDetail.error_category).all()
+
+    #aggregation 2: error count per severity (for the doughnut chart)
+    severity_dist = db.session.query(QCErrorDetail.severity,func.count(QCErrorDetail.id)).group_by(QCErrorDetail.severity).all()
+
+    #reshape data for chart.js - separate levels and counts
+    error_labels = [row[0] for row in error_dist]
+    error_counts = [row[1] for row in error_dist]
+    severity_labels = [row[0] for row in severity_dist]
+    severity_counts = [row[1] for row in severity_dist]
+
+    #reshape batch data for stacked bar chart
+    batch_labels = [b.filename[:20] for b in reversed(batches)]
+    batch_pass = [b.pass_count for b in reversed(batches)]
+    batch_warning = [b.warning_count for b in reversed(batches)]
+    batch_fail = [b.fail_count for b in reversed(batches)]
+
+    #top level summary stats for the cards at the top of the dashboard
+    total_batches = QCBatch.query.count()
+    total_records = db.session.query(func.sum(QCBatch.total_records)).scalar() or 0
+    total_errors = QCErrorDetail.query.count()
+    total_critical = QCErrorDetail.query.filter_by(severity='CRITICAL').count()
+
+    return render_template('dashboard.html',
+                           batches = batches,
+                           error_labels = error_labels,
+                           error_counts = error_counts,
+                           severity_labels = severity_labels,
+                           severity_counts = severity_counts,
+                           batch_labels = batch_labels,
+                           batch_pass = batch_pass,
+                           batch_warning = batch_warning,
+                           batch_fail = batch_fail,
+                           total_batches = total_batches,
+                           total_records = total_records,
+                           total_errors = total_errors,
+                           total_critical = total_critical)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -49,76 +90,83 @@ def upload_file():
         flash('The JSON file contained no records', 'error')
         return redirect(url_for('index'))
 
-    #Create the batch record
-    existing = QCBatch.query.filter_by(filename=file.filename).first()
-    if existing:
-        for r in existing.results:
-            db.session.delete(r)
-        existing.total_records = len(records)   
-        existing.uploaded_at = datetime.utcnow()
-        existing.pass_count = 0
-        existing.warning_count = 0
-        existing.fail_count = 0
-        db.session.flush()
-        batch = existing
-    else:
-        batch = QCBatch(
-        filename = file.filename,
-        total_records = len(records)
-        )
-        db.session.add(batch)
-        db.session.flush()
+    existing_batch = QCBatch.query.filter_by(filename=file.filename).first()
 
-    #counters for the batch summary
-    pass_count = 0
-    warn_count = 0
-    fail_count = 0
+    # --- Run validation on all records (ALWAYS happens) ---
+    all_results = []
+    pass_count = warn_count = fail_count = 0
 
     for record in records:
         result = run_all_validators(record)
-
-        #track status count
         if result['status'] == 'PASS':
             pass_count += 1
         elif result['status'] == 'WARNING':
             warn_count += 1
-        else: #fail
+        else:
             fail_count += 1
-        
-        qc_result = QCResult(
-            batch_id = batch.id,
-            patient_id = record.get('patient_id', 'UNKNOWN'),
-            overall_status = result['status'],
-            ocr_confidence = record.get('ocr_confidence'),
-            error_summary = {
-                'total': len(result['errors']),
+        all_results.append({'record': record, 'result': result})
+
+    if existing_batch:
+        # RE-UPLOAD → show results, do NOT touch DB
+        flash('This file was already uploaded. Showing validation preview (not saved).', 'info')
+        preview_results = []
+        for item in all_results:
+            rec, res = item['record'], item['result']
+            preview_results.append({
+                'patient_id': rec.get('patient_id', 'UNKNOWN'),
+                'overall_status': res['status'],
+                'ocr_confidence': rec.get('ocr_confidence'),
+                'error_summary': {
+                    'total': len(res['errors']),
+                    'critical': sum(1 for e in res['errors'] if e['severity'] == 'CRITICAL'),
+                    'warning': sum(1 for e in res['errors'] if e['severity'] == 'WARNING'),
+                    'info': sum(1 for e in res['errors'] if e['severity'] == 'INFO'),
+                },
+                'errors': res['errors']
+            })
+        preview_batch = {
+            'filename': file.filename,
+            'total_records': len(records),
+            'pass_count': pass_count,
+            'warning_count': warn_count,
+            'fail_count': fail_count,
+        }
+        return render_template('batch_detail.html', batch=preview_batch, results=preview_results, is_preview=True)
+
+    else:
+        # FIRST UPLOAD → save to DB (existing logic, unchanged)
+        batch = QCBatch(filename=file.filename, total_records=len(records))
+        db.session.add(batch)
+        db.session.flush()
+        for item in all_results:
+            rec, res = item['record'], item['result']
+            qc_result = QCResult(
+                batch_id=batch.id,
+                patient_id=rec.get('patient_id', 'UNKNOWN'),
+                overall_status=res['status'],
+                ocr_confidence=rec.get('ocr_confidence'),
+                error_summary={ 'total': len(result['errors']),
                 'critical': sum(1 for e in result['errors'] if e['severity'] == 'CRITICAL'),
                 'warning': sum(1 for e in result['errors'] if e['severity'] == 'WARNING'),
-                'info': sum(1 for e in result['errors'] if e['severity'] == 'INFO'),
-            }
-        )
-        db.session.add(qc_result)
-        db.session.flush() #get the qc_result.id for the error_details rows
-        
-        for error in result['errors']:
-            detail = QCErrorDetail(
-                result_id = qc_result.id,
+                'info': sum(1 for e in result['errors'] if e['severity'] == 'INFO') }  
+            )
+            db.session.add(qc_result)
+            db.session.flush()
+            for error in res['errors']:
+                detail = QCErrorDetail(
+                result_id=qc_result.id, 
                 error_category = error['category'],
                 severity = error['severity'],
                 field_name = error['field'],
                 error_message = error['message'],
-                suggestion = error.get('suggestion', '')
-            )
-            db.session.add(detail)
-
-    #finalising batch, commit, redirect -------
-    batch.pass_count = pass_count
-    batch.warning_count = warn_count
-    batch.fail_count = fail_count
-
-    db.session.commit()
-    flash(f'Successfully validated {len(records)} records.', 'success')
-    return redirect(url_for('batch_detail', batch_id=batch.id))
+                suggestion = error.get('suggestion', '')) 
+                db.session.add(detail)
+        batch.pass_count = pass_count
+        batch.warning_count = warn_count
+        batch.fail_count = fail_count
+        db.session.commit()
+        flash(f'Successfully validated {len(records)} records.', 'success')
+        return redirect(url_for('batch_detail', batch_id=batch.id))
 
 @app.route('/batch/<int:batch_id>')
 def batch_detail(batch_id):

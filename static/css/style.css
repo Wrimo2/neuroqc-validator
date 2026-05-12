@@ -1,28 +1,202 @@
 /* static/css/style.css */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; background: #f4f6f9; color: #1a1a1a; line-height: 1.5; }
-.navbar { background: #1f3a5f; color: white; padding: 14px 28px; display: flex; justify-content: space-between; align-items: center; }
-.nav-brand { font-size: 18px; font-weight: 700; }
-.nav-links a { color: white; text-decoration: none; margin-left: 20px; font-size: 14px; opacity: 0.85; }
-.nav-links a:hover { opacity: 1; }
-.container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-.flash { padding: 12px 18px; margin-bottom: 20px; border-radius: 6px; font-size: 14px; }
-.flash { padding: 12px 18px; margin-bottom: 20px; border-radius: 6px; font-size: 14px; }
-.flash-error { background: #fdecea; color: #c0392b; border-left: 4px solid #c0392b; }
-.flash-success { background: #e9f7ef; color: #196f3d; border-left: 4px solid #196f3d; }
-.flash-info { background: #eaf4fd; color: #1f4e79; border-left: 4px solid #1f4e79; }
-.footer { text-align: center; padding: 24px; margin-top: 40px; color: #7f8c8d; font-size: 13px; }
+* { box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+body { 
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif; 
+    background: #f4f6f9; 
+    color: #1a1a1a; 
+    line-height: 1.5; 
+}
+.navbar { 
+    background: #1f3a5f; 
+    color: white; 
+    padding: 14px 28px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+.nav-brand { 
+    font-size: 18px; 
+    font-weight: 700; 
+}
+.nav-links a { 
+    color: white; 
+    text-decoration: none; 
+    margin-left: 20px; 
+    font-size: 14px; 
+    opacity: 0.85; 
+}
+.nav-links a:hover { 
+    opacity: 1; 
+}
+.container { 
+    max-width: 1100px; 
+    margin: 30px auto; 
+    padding: 0 20px; 
+}
+.flash { 
+    padding: 12px 18px; 
+    margin-bottom: 20px; 
+    border-radius: 6px; 
+    font-size: 14px; 
+}
+.flash-error { 
+    background: #fdecea; 
+    color: #c0392b; 
+    border-left: 4px solid #c0392b; 
+}
+.flash-success { 
+    background: #e9f7ef; 
+    color: #196f3d; 
+    border-left: 4px solid #196f3d; 
+}
+.flash-info { 
+    background: #eaf4fd; 
+    color: #1f4e79; 
+    border-left: 4px solid #1f4e79; 
+}
+.footer { 
+    text-align: center; 
+    padding: 24px; 
+    margin-top: 40px; 
+    color: #7f8c8d; 
+    font-size: 13px; 
+}
 /* Status badges used throughout the app */
-.badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
-.badge-pass { background: #d4efdf; color: #196f3d; }
-.badge-warning { background: #fef5e7; color: #b7740d; }
-.badge-fail { background: #fadbd8; color: #c0392b; }
+.badge { 
+    display: inline-block; 
+    padding: 4px 10px; 
+    border-radius: 12px; 
+    font-size: 12px; 
+    font-weight: 600; 
+}
+.badge-pass { 
+    background: #d4efdf; 
+    color: #196f3d; 
+}
+.badge-warning { 
+    background: #fef5e7; 
+    color: #b7740d; 
+}
+.badge-fail { 
+    background: #fadbd8; 
+    color: #c0392b; 
+}
 /* Reusable card component */
-.card { background: white; border-radius: 8px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 20px; }
-table.data-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
-.data-table th, .data-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #ecf0f1; }
-.data-table th { background: #f8f9fa; font-size: 13px; color: #555; text-transform: uppercase; letter-spacing: 0.5px; }
-.data-table tr:hover { background: #f8f9fa; }
-.btn { display: inline-block; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; }
-.btn-primary { background: #2e75b6; color: white; }
-.btn-primary:hover { background: #1f4e79; }
+.card { 
+    background: white; 
+    border-radius: 8px; 
+    padding: 24px; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
+    margin-bottom: 20px; 
+}
+table.data-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    background: white; 
+    border-radius: 8px; 
+    overflow: hidden; 
+}
+.data-table th, .data-table td { 
+    padding: 12px 16px; 
+    text-align: left; 
+    border-bottom: 1px solid #ecf0f1; 
+}
+.data-table th { 
+    background: #f8f9fa; 
+    font-size: 13px; 
+    color: #555; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px; 
+}
+.data-table tr:hover { 
+    background: #f8f9fa; 
+}
+.btn { 
+    display: inline-block; 
+    padding: 10px 20px; 
+    border-radius: 6px; 
+    border: none; 
+    cursor: pointer; 
+    font-size: 14px; 
+    font-weight: 600; 
+    text-decoration: none; 
+}
+.btn-primary { 
+    background: #2e75b6; 
+    color: white; 
+}
+.btn-primary:hover { 
+    background: #1f4e79; 
+}
+/* Style for the dashboard */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.stat-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+.stat-card.stat-critical {
+    border-left: 4px solid #e74c3c;
+}
+.stat-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #666;
+    text-transform: uppercase;
+}
+.stat-value {
+    font-size: 42px;
+    font-weight: bold;
+    color: #1f4e79;
+    margin-top: 8px;
+}
+.chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.chart-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 50px;
+}
+.chart-card h3 {
+    margin-top: 0;
+    color: #1f4e79
+}
+.chart-full {
+    margin-bottom: 24px;
+}
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.data-table th, .data-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+}
+.data-table .pass {
+    color: #2ecc71;
+    font-weight: bold;
+}
+.data-table .warn {
+    color: #f39c12;
+    font-weight: bold;
+}
+.data-table .fail {
+    color: #e74c3c;
+    font-weight: bold;
+}

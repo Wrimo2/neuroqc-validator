@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>NeuroQC Dashboard</h1>
+<p class="subtitle">Quality control overview across all batches</p><br>
+
+<!-- summary cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-label">Total Batches</div>
+        <div class="stat-value">{{ total_batches }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Total Processed</div>
+        <div class="stat-value">{{ total_records }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Total Errors Caught</div>
+        <div class="stat-value">{{ total_errors }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Critical Errors</div>
+        <div class="stat-value">{{ total_critical }}</div>
+    </div>
+</div>
+
+<!--Charts Row 1: error category + severity -->
+<div class="chart-row">
+    <div class="chart-card">
+        <h3>Error distribution by category</h3><br>
+        <canvas id="errorPieChart"></canvas>
+    </div>
+    <div class="chart-card">
+        <h3>Severity Breakdown</h3><br>
+        <canvas id="severityDoughnut"></canvas>
+    </div>
+</div>
+
+<!--Charts Row 2: batch trend full width-->
+<div class="chart-card chart-full">
+    <h3>Batch Outcomes Over Time</h3>
+    <canvas id="batchBarChart"></canvas>
+</div>
+
+<!-- Recent batches table -->
+<div class="card">
+    <h3>Recent Batches</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Uploaded</th>
+                <th>Records</th>
+                <th>Pass</th>
+                <th>Warning</th>
+                <th>Fail</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for b in batches %}
+            <tr>
+                <td>{{ b.filename }}</td>
+                <td>{{ b.uploaded_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>{{ b.total_records }}</td>
+                <td class="pass">{{ b.pass_count }}</td>
+                <td class="warn">{{ b.warning_count }}</td>
+                <td class="fail">{{ b.fail_count }}</td>
+                <td><a href="{{ url_for('batch_detail', batch_id=b.id) }}">View</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!--Chart Scripts -->
+<script>
+    // Chart 1: Error Distribution Pie Chart
+    const errorCtx = document.getElementById('errorPieChart').getContext('2d');
+    new Chart(errorCtx, {
+        type: 'pie',
+        data: {
+            labels: {{ error_labels | tojson }},
+            datasets: [{
+                data: {{ error_counts | tojson }},
+                backgroundColor: [
+                    '#e74c3c', //red - RANGE
+                    '#f39c12', //orange - ICD
+                    '#3498db', //blue - SCHEMA
+                    '#2ecc71', //green - COMPLETENESS
+                    '#9b59b6', //purple - MEDICATION
+                    '#1abc9c', //teal - PHI_LEAK
+                    '#34495e', //dark-gray - OCR-CONFIDENCE
+                ],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {position: 'bottom'},
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const pct = ((context.parsed * 100) / total).toFixed(1);
+                            return context.label + ': ' + context.parsed + ' (' + pct + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    //Chart 2: Batch pass/fail Stacked bar chart
+    const barCtx = document.getElementById('batchBarChart').getContext('2d');
+    new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ batch_labels | tojson }},
+            datasets: [
+                {
+                    label: 'Pass',
+                    data: {{ batch_pass | tojson }},
+                    backgroundColor: '#2ecc71'
+                },
+                {
+                    label: 'Warning',
+                    data: {{ batch_warning | tojson }},
+                    backgroundColor: '#f39c12'
+                },
+                {
+                    label: 'Fail',
+                    data: {{ batch_fail | tojson }},
+                    backgroundColor: '#e74c3c'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top'},
+                title: { display: false }
+            },
+            scales: {
+                x: { stacked: true, title: { display: true, text: 'Batch (oldest → newest)'}},
+                y: { stacked: true, title: { display: true, text: 'Number of Records' }, beginAtZero: true}
+            }
+        }
+    });
+
+    //Chart 3: Severity Distribution Doughnut Chart
+    const sevLabels = {{ severity_labels | tojson }};
+    const sevColorMap = {
+        'CRITICAL': '#e74c3c',
+        'WARNING': '#f39c12',
+        'INFO': '#3498db'
+    };
+    const sevColors = sevLabels.map(label => sevColorMap[label] || '#95a5a6');
+    const sevCtx = document.getElementById('severityDoughnut').getContext('2d');
+    new Chart(sevCtx, {
+        type: 'doughnut',
+        data: {
+            labels: sevLabels,
+            datasets: [{
+                data: {{ severity_counts | tojson }},
+                backgroundColor: sevColors
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: '60%',
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+</script>
+{% endblock %}

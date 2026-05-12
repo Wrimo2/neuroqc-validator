@@ -42,7 +42,7 @@
     "vitals": {
       "systolic_bp": 127,
       "diastolic_bp": 70,
-      "heart_rate": 72,
+      "heart_rate": 980,
       "weight_kg": 57.8
     },
     "lab_results": {
@@ -83,13 +83,13 @@
   {
     "patient_id": "NDAI-CLEAN-004",
     "dob_year": 1964,
-    "gender": "Female",
+    "gender": "F",
     "visit_date": "2024-02-28",
     "diagnosis_codes": [
       "G40.909"
     ],
     "medications": [
-      "Gabapentin 300mg",
+      "Ganapentin 300mg",
       "Lamotrigine 100mg"
     ],
     "vitals": {

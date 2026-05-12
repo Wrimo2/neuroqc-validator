@@ -5,6 +5,7 @@ from .icd_validator import validate_icd_codes
 from .completeness_checker import check_completeness
 from .medication_validator import validate_medication #added after phase 3
 from .phi_detector import detect_phi #added after phase 3
+from .confidence_triage import triage_ocr_confidence #adding at phase 5
 
 def run_all_validators(record):
     all_errors = []
@@ -25,6 +26,7 @@ def run_all_validators(record):
         all_errors.extend(check_completeness(record))
         all_errors.extend(validate_medication(record)) #added after phase 3
         all_errors.extend(detect_phi(record)) #added after phase 3
+        all_errors.extend(triage_ocr_confidence(record)) #adding at phase 5
     
     #determine overall status
     #has_critical
