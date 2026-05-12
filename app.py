@@ -1,3 +1,5 @@
+from dotenv import load_dotenv
+load_dotenv() # Reads .env into os.environ
 from flask import Flask, render_template, request, flash, redirect, url_for
 from config import config
 from validators import run_all_validators

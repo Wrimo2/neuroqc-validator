@@ -1,6 +1,41 @@
-﻿__pycache__/
+﻿.gitignore
+# Python bytecode
+__pycache__/
 *.pyc
-.env
-uploads/
-config.py
+*.py[cod]
+*.so
+
+# Virtual environments
+.venv/
 venv/
+env/
+ENV/
+# Environment variables — CRITICAL
+.env
+.env.local
+.env.production
+*.env
+!.env.example
+# Flask uploaded files (user data, not code)
+uploads/
+instance/
+# IDE / editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+# Logs and databases
+*.log
+*.sqlite
+*.db
+# Build artifacts
+*.egg-info/
+build/
+dist/
+# Jupyter
+.ipynb_checkpoints/
+# Compiled translations
+*.mo
+*.pot

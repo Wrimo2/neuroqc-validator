@@ -7,4 +7,3 @@ pandas == 2.2.2 #Reads JSON/CSV into DataFrames for batch processing.
 rapidfuzz == 3.9.0 #Fast fuzzy string matching (similarity scores 0–100).
 spacy == 3.7.5 #AI-powered Named Entity Recognition (NER).
 python-levenshtein == 0.25.1 #Calculates edit distance between strings.
-
