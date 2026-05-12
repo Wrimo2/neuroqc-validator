@@ -60,7 +60,8 @@ auto-accept, LOW <0.85 mandatory review |
 ![Batch results](docs/screenshots/batch.png)
 
 ### Dashboard
-![Dashboard](docs/screenshots/dashboard.png)
+![Dashboard](docs/screenshots/dashboard1.png)
+![Dashboard](docs/screenshots/dashboard2.png)
 
 ## 🚀 Running It Yourself
 
