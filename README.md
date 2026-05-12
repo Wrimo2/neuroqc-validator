@@ -31,17 +31,12 @@ leaks all at once.
 | # | Validator | What It Catches |
 |---|-----------|-----------------|
 | 1 | **Schema** | Missing required fields, wrong data types, invalid enums |
-| 2 | **Range** | Vitals and lab values outside medically possible ranges (e.g., systolic
-BP of 928 from an OCR misread of 128) |
-| 3 | **ICD-10** | Invalid diagnosis codes, with edit-distance suggestions for OCR errors
-(G4O.909 → G40.909) |
-| 4 | **Medication** | Misspelled drug names via rapidfuzz fuzzy matching (Levtiracetam →
-Levetiracetam, 93% match) |
+| 2 | **Range** | Vitals and lab values outside medically possible ranges (e.g., systolic BP of 928 from an OCR misread of 128) |
+| 3 | **ICD-10** | Invalid diagnosis codes, with edit-distance suggestions for OCR errors (G4O.909 → G40.909) |
+| 4 | **Medication** | Misspelled drug names via rapidfuzz fuzzy matching (Levtiracetam → Levetiracetam, 93% match) |
 | 5 | **Completeness** | Null/missing fields, with per-field error categorization |
-| 6 | **PHI Leak** | Phone numbers, SSNs, emails, MRNs (regex), plus names and locations
-(spaCy NER) — all masked in error output |
-| 7 | **OCR Confidence Triage** | Auto-routes records based on confidence: HIGH ≥0.95
-auto-accept, LOW <0.85 mandatory review |
+| 6 | **PHI Leak** | Phone numbers, SSNs, emails, MRNs (regex), plus names and locations (spaCy NER) — all masked in error output |
+| 7 | **OCR Confidence Triage** | Auto-routes records based on confidence: HIGH ≥0.95auto-accept, LOW <0.85 mandatory review |
 
 ## 🧱 Tech Stack
 
