@@ -10,7 +10,7 @@
 flask == 3.0.3  #Web framework — handles HTTP requests, routes, and serves pages.
 flask-sqlalchemy == 3.1.1 #Bridges Flask and SQLAlchemy so you define tables as Python classes.
 pymysql == 1.1.1 #The driver that actually connects Python to MySQL.
-pandas == 2.2.2 #Reads JSON/CSV into DataFrames for batch processing.
+pandas == 2.2.3 #Reads JSON/CSV into DataFrames for batch processing.
 rapidfuzz == 3.9.0 #Fast fuzzy string matching (similarity scores 0–100).
 spacy == 3.7.5 #AI-powered Named Entity Recognition (NER).
 python-levenshtein == 0.25.1 #Calculates edit distance between strings.
