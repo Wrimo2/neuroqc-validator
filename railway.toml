@@ -1,2 +1,5 @@
+[build]
+nixpacksPythonVersion = "3.12.3"
+
 [deploy]
 startCommand = "gunicorn app:app --workers 2 --timeout 120 --bind 0.0.0.0:$PORT"
