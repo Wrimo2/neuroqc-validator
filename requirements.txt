@@ -1,4 +1,11 @@
 #requirement.txt
+# NeuroQC Validator — Python dependencies
+#
+# Install everything with one command:
+# pip install -r requirements.txt
+#
+# The spaCy English NER model is included as a direct URL dependency
+# (see the en-core-web-sm line at the bottom of this file).
 
 flask == 3.0.3  #Web framework — handles HTTP requests, routes, and serves pages.
 flask-sqlalchemy == 3.1.1 #Bridges Flask and SQLAlchemy so you define tables as Python classes.
@@ -7,3 +14,5 @@ pandas == 2.2.2 #Reads JSON/CSV into DataFrames for batch processing.
 rapidfuzz == 3.9.0 #Fast fuzzy string matching (similarity scores 0–100).
 spacy == 3.7.5 #AI-powered Named Entity Recognition (NER).
 python-levenshtein == 0.25.1 #Calculates edit distance between strings.
+gunicorn==21.2.0 #runs flusk app on railway
+en-core-web-sm @https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
