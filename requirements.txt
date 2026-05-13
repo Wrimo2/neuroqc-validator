@@ -15,4 +15,5 @@ rapidfuzz == 3.9.0 #Fast fuzzy string matching (similarity scores 0–100).
 spacy == 3.7.5 #AI-powered Named Entity Recognition (NER).
 python-levenshtein == 0.25.1 #Calculates edit distance between strings.
 gunicorn==21.2.0 #runs flusk app on railway
+python-dotenv==1.0.1
 en-core-web-sm @https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
